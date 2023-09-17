@@ -11,13 +11,8 @@ def index():
         img = Image.open(request.files["file"])
         dominant_colors = get_dominant_colors(img)
         plot_colors(dominant_colors)
-        return "Color palette generated. Check the server directory for 'output.png'"
-    return '''
-        <form action="/" method="post" enctype="multipart/form-data">
-            <input type="file" name="file">
-            <input type="submit" value="Upload">
-        </form>
-    '''
+        return render_template("result.html")
+    return render_template("upload.html")
 
 def get_dominant_colors(img, n_colors=5):
     img = img.resize((100, 100))  # resizing to speed up processing time
@@ -40,7 +35,7 @@ def plot_colors(colors):
     for sp in ax.spines.values():
         sp.set_visible(False)
     ax.imshow([colors], aspect='auto')
-    plt.savefig("output.png")
+    plt.savefig("static/output.png")
 
 if __name__ == "__main__":
     app.run(debug=True)

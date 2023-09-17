@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Image Color Palette Result</title>
+  </head>
+  <body>
+    <h2>Your Color Palette:</h2>
+    <img
+      src="{{ url_for('static', filename='output.png') }}"
+      alt="Color Palette"
+    />
+
+    <br />
+    <a href="{{ url_for('index') }}">Try another image</a>
+  </body>
+</html>
