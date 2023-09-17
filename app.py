@@ -14,21 +14,20 @@ def index():
         return render_template("result.html")
     return render_template("upload.html")
 
+from sklearn.cluster import KMeans
+
 def get_dominant_colors(img, n_colors=5):
     img = img.resize((100, 100))  # resizing to speed up processing time
     data = np.array(img)
+    data = data[:, :, :3]  # Discarding the alpha channel if it exists
+    data = data.reshape(-1, 3)
+    
+    kmeans = KMeans(n_clusters=n_colors)
+    kmeans.fit(data)
+    dominant_colors = kmeans.cluster_centers_
+    
+    return dominant_colors.astype(int)
 
-    if data.shape[-1] == 4:  # If the image has an Alpha channel
-        data = data.reshape(-1, 4)
-        data = [tuple(item) for item in data if item[3] != 0]  # remove transparent pixels
-    else:
-        data = data.reshape(-1, 3)
-
-    unique, counts = np.unique(data, axis=0, return_counts=True)
-    sorted_indices = np.argsort(-counts)
-    dominant_colors = unique[sorted_indices][:n_colors]
-
-    return dominant_colors
 
 def plot_colors(colors):
     fig, ax = plt.subplots(1, figsize=(5, 2), subplot_kw=dict(xticks=[], yticks=[], frame_on=False))
