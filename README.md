@@ -1,5 +1,5 @@
-# Color-palette-from-image
-A simple web app to create color palette from image
+# Color-palette-generator
+A simple web app to create color palette from image input
 
 Idea: Kmeans clustering
 
