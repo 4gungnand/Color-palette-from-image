@@ -1,6 +1,4 @@
 # Auto-palette
-A simple web app to create color palette from image input
+A simple web app to create a color palette from image input.
 
-Idea: Kmeans clustering
-
-Framwork: Flask
+Core Idea: K-Means clustering
